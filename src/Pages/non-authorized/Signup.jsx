@@ -53,12 +53,11 @@ const Signup = () => {
           <button type="submit" className="bg-blue-500 text-white px-4 py-4 rounded">Sign Up</button>
         </div>
         <p className="text-center text-sm text-gray-600">
-          Already have an account?{" "}
+          Already have an account?
           <a href="#" className="text-blue-600 hover:underline font-medium">Sign In now</a>
         </p>
       </form>
-
-      {/* Right Side Image Section */}
+      
       <div className="hidden md:block w-full md:w-1/2">
         <img
           src="https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?auto=format&fit=crop&w=1000&q=80"

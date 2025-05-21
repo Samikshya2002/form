@@ -2,10 +2,9 @@ import React from "react";
 import { useFormik } from "formik";
 import { signUpSchema } from '../../validation/Signupschema';
 import { InputField } from "/src/components";
+import { toast } from "react-toastify";
+import Toastcontainer from "../../components/Toastcontainer";
 
-const handleFormSubmission = (values) => {
-  console.log("Form Data", values);
-};
 
 const Signup = () => {
   const formik = useFormik({
@@ -17,7 +16,17 @@ const Signup = () => {
       confirm_password: "",
     },
     validationSchema: signUpSchema,
-    onSubmit: handleFormSubmission,
+    onSubmit: (values) => {
+      const hasErrors = Object.keys(formik.errors).length>0;
+
+      if(hasErrors) {
+        toast.error("Something went wrong");
+        return;
+      }
+
+      console.log("Form Data", values);
+      toast.success("Signup successful! 🎉");
+    },
 
     validateOnChange: true,
   validateOnBlur: true,
@@ -65,6 +74,7 @@ const Signup = () => {
           className="h-full w-full object-cover"
         />
       </div>
+      <Toastcontainer/>
     </div>
   );
 };

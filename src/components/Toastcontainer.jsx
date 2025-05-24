@@ -1,19 +1,18 @@
-// src/components/Toastcontainer.jsx
 import React from "react";
-import { ToastContainer, Bounce } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, Slide } from "react-toastify";
+
 
 const Toastcontainer = () => (
   <ToastContainer
     position="top-center"
-    autoClose={5000}
+    autoClose={3000}
     hideProgressBar={true}
-    closeOnClick={false}
-    pauseOnHover={true}
+    closeOnClick={true}
+    pauseOnHover={false}
     draggable={true}
     progress={undefined}
-    theme="light"
-    transition={Bounce}
+    theme="colored"
+    transition={Slide}
     limit={1}  
   />
 );

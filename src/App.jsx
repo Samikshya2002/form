@@ -1,13 +1,14 @@
-import { ToastContainer } from "react-toastify"
-import Signup from "./Pages/non-authorized/Signup"
+import React from "react";
+import Signup from "./Pages/non-authorized/Signup";
+import Toastcontainer from "./components/Toastcontainer";
 
 function App() {
-  return(
+  return (
     <>
-    <Signup />
-    <ToastContainer/>
+      <Signup />
+      <Toastcontainer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

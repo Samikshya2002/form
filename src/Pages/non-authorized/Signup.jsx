@@ -3,10 +3,13 @@ import { useFormik } from "formik";
 import { signUpSchema } from '../../validation/Signupschema';
 import { InputField } from "/src/components";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ToastContainer from "../../components/Toastcontainer";
 
 
 const Signup = () => {
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       first_name: "",
@@ -19,10 +22,12 @@ const Signup = () => {
     onSubmit: (values) => {
       console.log("Form Data", values);
       toast.success("Signup successful! 🎉");
-  },
 
-
-    validateOnChange: true,
+      setTimeout(() => {
+    navigate("/signin");
+  }, 2000);
+    },
+  validateOnChange: true,
   validateOnBlur: true,
   });
 
@@ -57,7 +62,7 @@ const Signup = () => {
         </div>
         <p className="text-center text-sm text-gray-600">
           Already have an account?
-          <a href="#" className="text-blue-600 hover:underline font-medium">Sign In now</a>
+          <Link to="/signin" className="text-blue-600 hover:underline font-medium">Sign In now</Link>
         </p>
       </form>
       

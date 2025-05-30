@@ -19,13 +19,29 @@ const Signup = () => {
       confirm_password: "",
     },
     validationSchema: signUpSchema,
-    onSubmit: (values) => {
-      console.log("Form Data", values);
-      toast.success("Signup successful! 🎉");
+    onSubmit: async(values) => {
+      try {
+    const res = await fetch("http://localhost:5001/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        password: values.password,
+      }),
+    });
 
-      setTimeout(() => {
-    navigate("/signin");
-  }, 2000);
+    if (res.ok) {
+      toast.success("Signup successful! 🎉");
+      setTimeout(() => navigate("/signin"), 1500);
+    } else {
+      toast.error("Signup failed. Try again.");
+    }
+  } catch (error) {
+    toast.error("Server error. Please try later.");
+    console.error("Signup error:", error);
+  }
     },
   validateOnChange: true,
   validateOnBlur: true,

@@ -15,12 +15,30 @@ const Signin = () => {
       password: "",
     },
     validationSchema: signInSchema,
-    onSubmit: (values) => {
-      console.log("Login Data", values);
+    onSubmit: async(values) => {
+      try {
+    const res = await fetch(
+      `http://localhost:5001/users?email=${values.email}&password=${values.password}`
+    );
+    const data = await res.json();
+
+    if (data.length > 0) {
+      // Simulate a token (normally this comes from the backend)
+      const fakeToken = `token-${Math.random().toString(36).substr(2)}`;
+
+      // Save both user and token
+      localStorage.setItem("user", JSON.stringify(data[0]));
+      localStorage.setItem("token", fakeToken);
+
       toast.success("Sign in successful! 🚀");
-      setTimeout(() => {
-    navigate("/welcome");
-  }, 2000);
+      setTimeout(() => navigate("/welcome"), 1500);
+    } else {
+      toast.error("Invalid email or password");
+    }
+  } catch (error) {
+    toast.error("Login failed. Server error.");
+    console.error("Signin error:", error);
+  }
     },
     validateOnChange: true,
     validateOnBlur: true,

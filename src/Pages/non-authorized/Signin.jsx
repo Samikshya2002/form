@@ -23,10 +23,8 @@ const Signin = () => {
     const data = await res.json();
 
     if (data.length > 0) {
-      // Simulate a token (normally this comes from the backend)
-      const fakeToken = `token-${Math.random().toString(36).substr(2)}`;
+      const fakeToken = `token-${Math.random().toString(36).slice(2)}`;
 
-      // Save both user and token
       localStorage.setItem("user", JSON.stringify(data[0]));
       localStorage.setItem("token", fakeToken);
 

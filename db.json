@@ -6,6 +6,13 @@
       "last_name": "Shrestha",
       "email": "asdf@gmail.com",
       "password": "1234asdf@"
+    },
+    {
+      "id": "deeb",
+      "first_name": "Samikshya",
+      "last_name": "Shrestha",
+      "email": "test@gmail.com",
+      "password": "12345asd@"
     }
   ]
 }

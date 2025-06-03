@@ -7,6 +7,7 @@ const AddTodoModal = ({ onClose, onSave }) => {
     if (inputValue.trim()) {
       onSave(inputValue); 
       setInputValue('');
+      onClose();
     }
   };
 
@@ -17,8 +18,8 @@ const AddTodoModal = ({ onClose, onSave }) => {
         <input
           type="text"
           placeholder="Enter todo"
-          value={inputValue} // bind input
-          onChange={(e) => setInputValue(e.target.value)} // update state
+          value={inputValue} 
+          onChange={(e) => setInputValue(e.target.value)} 
           className="w-full p-2 border border-gray-300 rounded mb-4"
         />
         <div className="flex justify-end space-x-2">

@@ -13,6 +13,13 @@
       "last_name": "Shrestha",
       "email": "test@gmail.com",
       "password": "12345asd@"
+    },
+    {
+      "id": "c246",
+      "first_name": "samikshya",
+      "last_name": "shrestha ",
+      "email": "asdf@gmail.com",
+      "password": "1234asdf@"
     }
   ]
 }

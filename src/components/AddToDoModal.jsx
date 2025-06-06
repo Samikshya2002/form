@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const AddTodoModal = ({ onClose, onSave }) => {
+const AddTodoModal = ({ onClose, onSave, initialText = '' }) => {
   const [inputValue, setInputValue] = useState('');
+
+  useEffect(() => {
+    setInputValue(initialText); 
+  }, [initialText]);
 
   const handleSave = () => {
     if (inputValue.trim()) {
-      onSave(inputValue); 
+      onSave(inputValue.trim());
       setInputValue('');
       onClose();
     }
@@ -14,12 +18,14 @@ const AddTodoModal = ({ onClose, onSave }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white p-6 rounded-xl shadow-xl w-96">
-        <h2 className="text-xl font-semibold mb-4 text-gray-700">Add New TODO</h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-700">
+          {initialText ? 'Edit TODO' : 'Add New TODO'}
+        </h2>
         <input
           type="text"
           placeholder="Enter todo"
-          value={inputValue} 
-          onChange={(e) => setInputValue(e.target.value)} 
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
           className="w-full p-2 border border-gray-300 rounded mb-4"
         />
         <div className="flex justify-end space-x-2">

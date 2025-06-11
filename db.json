@@ -20,6 +20,20 @@
       "last_name": "shrestha ",
       "email": "asdf@gmail.com",
       "password": "1234asdf@"
+    },
+    {
+      "id": "dc6a",
+      "first_name": "Sarad",
+      "last_name": "Shrestha",
+      "email": "test@gmail.com",
+      "password": "abcd123@"
+    },
+    {
+      "id": "22dc",
+      "first_name": "Samarpan",
+      "last_name": "Piya",
+      "email": "qwertz@gmail.com",
+      "password": "qwertz12@"
     }
   ]
 }

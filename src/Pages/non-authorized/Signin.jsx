@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { useFormik } from "formik";
 import { signInSchema } from '../../validation/Signinschema';
 import { InputField } from "/src/components";
@@ -9,6 +9,14 @@ import ToastContainer from "../../components/Toastcontainer";
 
 const Signin = () => {
     const navigate = useNavigate();
+
+    useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/todo", { replace: true }); 
+    }
+  }, [navigate]);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -29,7 +37,7 @@ const Signin = () => {
       localStorage.setItem("token", fakeToken);
 
       toast.success("Sign in successful! 🚀");
-      setTimeout(() => navigate("/welcome"), 1500);
+      setTimeout(() => navigate("/welcome" , { replace: true }), 1500);
     } else {
       toast.error("Invalid email or password");
     }
@@ -69,7 +77,7 @@ const Signin = () => {
     </div>
     <p className="text-center text-sm text-gray-600">
       Don’t have an account?{" "}
-      <Link to="/signup" className="text-blue-600 hover:underline font-medium">Sign In now</Link>
+      <Link to="/signup" className="text-blue-600 hover:underline font-medium">Sign Up now</Link>
     </p>
     </form>
     </div>

@@ -1,14 +1,15 @@
 import React from "react";
 import { useFormik } from "formik";
-import { signUpSchema } from '../../validation/Signupschema';
+import { signUpSchema } from '../../../validation/Signupschema';
 import { InputField } from "/src/components";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import ToastContainer from "../../components/Toastcontainer";
+import SignUpDropdown from "../../../components/SignUpDropdown";
+import ToastContainer from "../../../components/Toastcontainer";
 
 
-const Signup = () => {
+const SuperAdminSignup = () => {
   const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
@@ -34,7 +35,7 @@ const Signup = () => {
 
     if (res.ok) {
       toast.success("Signup successful! 🎉");
-      setTimeout(() => navigate("/signin"), 1500);
+      setTimeout(() => navigate("/signin"));
     } else {
       toast.error("Signup failed. Try again.");
     }
@@ -73,9 +74,7 @@ const Signup = () => {
             touched={formik.touched[field.name]}
           />
         ))}
-        <div className="mb-4">
-          <button type="submit" className="bg-blue-500 text-white px-4 py-4 rounded">Sign Up</button>
-        </div>
+        <div><SignUpDropdown/></div>
         <p className="text-center text-sm text-gray-600">
           Already have an account?
           <Link to="/signin" className="text-blue-600 hover:underline font-medium">Sign In now</Link>
@@ -90,7 +89,8 @@ const Signup = () => {
         />
       </div>
     </div>
+   
   );
 };
 
-export default Signup;
+export default SuperAdminSignup;

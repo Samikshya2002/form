@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 import { useFormik } from "formik";
-import { signInSchema } from '../../validation/Signinschema';
+import { signInSchema } from '../../../validation/Signinschema';
 import { InputField } from "/src/components";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import ToastContainer from "../../components/Toastcontainer";
+import ToastContainer from "../../../components/Toastcontainer";
 
-const Signin = () => {
+const SuperAdminSignin = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const Signin = () => {
       localStorage.setItem("token", fakeToken);
 
       toast.success("Sign in successful! 🚀");
-      setTimeout(() => navigate("/welcome" , { replace: true }), 1500);
+      setTimeout(() => navigate("/welcome" , { replace: true }));
     } else {
       toast.error("Invalid email or password");
     }
@@ -85,4 +85,4 @@ const Signin = () => {
   )
 }
 
-export default Signin;
+export default SuperAdminSignin;

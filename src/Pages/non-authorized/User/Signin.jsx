@@ -13,7 +13,7 @@ const Signin = () => {
     useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/todo", { replace: true }); 
+      navigate("/signin", { replace: true }); 
     }
   }, [navigate]);
 

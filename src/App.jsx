@@ -20,12 +20,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/signup" replace />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/signup" element={<AdminSignup />} />
-          <Route path="/signup" element={<SuperAdminSignup/>} />
+          <Route path="/adminsignup" element={<AdminSignup />} />
+          <Route path="/superadminsignup" element={<SuperAdminSignup/>} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/adminsignin" element={<AdminSignin /> }/>
           <Route path="/superadminsignin" element={ <SuperAdminSignin />}/>
-          <Route path = "/todo" element = {<ProtectedRoute><Welcome /></ProtectedRoute>}/>
+          <Route path = "/welcome" element = {<ProtectedRoute><Welcome /></ProtectedRoute>}/>
           <Route path = "/todo" element = {<ProtectedRoute><ToDo /></ProtectedRoute>}/>
           <Route path="*" element={<PageNotFound />} />
         </Routes>

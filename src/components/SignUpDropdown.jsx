@@ -7,7 +7,6 @@ const SignUpDropdown = () => {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
-  // Close dropdown if clicked outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

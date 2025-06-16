@@ -15,13 +15,6 @@
       "password": "12345asd@"
     },
     {
-      "id": "c246",
-      "first_name": "samikshya",
-      "last_name": "shrestha ",
-      "email": "asdf@gmail.com",
-      "password": "1234asdf@"
-    },
-    {
       "id": "dc6a",
       "first_name": "Sarad",
       "last_name": "Shrestha",
@@ -62,6 +55,27 @@
       "last_name": "Ssss",
       "email": "ascfdsvf@gmail.com",
       "password": "asdsf@123"
+    },
+    {
+      "id": "e95b",
+      "first_name": "Prass",
+      "last_name": "Aach",
+      "email": "ola@gmail.com",
+      "password": "qweras@1"
+    },
+    {
+      "id": "2fba",
+      "first_name": "Samikshya ",
+      "last_name": "Adhikari",
+      "email": "olaa.admin@gmail.com",
+      "password": "1234qwer@"
+    },
+    {
+      "id": "81d0",
+      "first_name": "ola",
+      "last_name": "haha",
+      "email": "qwes@gmail.com",
+      "password": "qwes12@1"
     }
   ]
 }

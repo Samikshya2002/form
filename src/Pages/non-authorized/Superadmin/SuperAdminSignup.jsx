@@ -59,7 +59,7 @@ const SuperAdminSignup = () => {
   return (
     <div className="flex flex-col md:flex-row max-w-4xl mx-auto shadow-md rounded overflow-hidden border mt-32">
       <form onSubmit={formik.handleSubmit} className="border w-full md:w-2/3 p-6 shadow-md">
-        <h1 className="font-bold mb-4">Sign Up</h1>
+        <h1 className="font-bold mb-4">Super Admin</h1>
         {formFields.map((field) => (
           <InputField
             key={field.id}
@@ -77,7 +77,7 @@ const SuperAdminSignup = () => {
         <div><SignUpDropdown/></div>
         <p className="text-center text-sm text-gray-600">
           Already have an account?
-          <Link to="/signin" className="text-blue-600 hover:underline font-medium">Sign In now</Link>
+          <Link to="/superadminsignin" className="text-blue-600 hover:underline font-medium">Sign In now</Link>
         </p>
       </form>
       

@@ -11,6 +11,9 @@ import Welcome from "./Pages/authorized/Welcome";
 import ToDo from "./Pages/authorized/ToDo"
 import PageNotFound from "./Pages/non-authorized/PageNotFound";
 import ProtectedRoute from "./components/ProtectedRoute"; 
+import AdminTodo from "./Pages/authorized/AdminTodo";
+import SuperAdminTodo from "./Pages/authorized/SuperAdminTodo";
+
 
 
 function App() {
@@ -27,6 +30,8 @@ function App() {
           <Route path="/superadminsignin" element={ <SuperAdminSignin />}/>
           <Route path = "/welcome" element = {<ProtectedRoute><Welcome /></ProtectedRoute>}/>
           <Route path = "/todo" element = {<ProtectedRoute><ToDo /></ProtectedRoute>}/>
+          <Route path = "/admintodo" element = {<ProtectedRoute><AdminTodo /></ProtectedRoute>}/>
+          <Route path = "/superadmintodo" element = {<ProtectedRoute><SuperAdminTodo /></ProtectedRoute>}/>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddTodoModal from '/src/components/AddToDoModal.jsx';
 import TodoTable from '../../components/TodoTable';
-
+import Sidebar from '../../components/Navbar';
 
 const ToDo = () => {
   const [showModal, setShowModal] = useState(false);
@@ -67,22 +67,14 @@ const ToDo = () => {
     setShowModal(true);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/signin', { replace: true });
-  };
+  
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
+      <Sidebar/>
       <div className="bg-white p-6 sm:p-10 rounded-2xl shadow-lg text-center max-w-2xl w-full relative mx-auto">
         <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-600">TODO List</h1>
-        <button
-          onClick={handleLogout}
-          className="absolute top-6 sm:top-10 right-6 sm:right-10 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg shadow text-sm sm:text-base"
-        >
-          Logout
-        </button>
+        
         <button
           onClick={() => {
             setEditingIndex(null); 

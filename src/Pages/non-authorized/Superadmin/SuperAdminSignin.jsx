@@ -13,7 +13,7 @@ const SuperAdminSignin = () => {
     useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/todo", { replace: true }); 
+      navigate("/superadminsignin", { replace: true }); 
     }
   }, [navigate]);
 
@@ -57,6 +57,7 @@ const SuperAdminSignin = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
     <form onSubmit={formik.handleSubmit} className="bg-white w-full max-w-sm p-6 rounded-lg shadow-lg">
+    <h1 className="font-bold mb-4">Super Admin</h1>
     <h1 className="font-bold mb-4">Sign In</h1>
     {formFields.map((field) => (
       <InputField

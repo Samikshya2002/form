@@ -13,7 +13,7 @@ const AdminSignin = () => {
     useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/todo", { replace: true }); 
+      navigate("/adminsignin", { replace: true }); 
     }
   }, [navigate]);
 
@@ -57,7 +57,8 @@ const AdminSignin = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
     <form onSubmit={formik.handleSubmit} className="bg-white w-full max-w-sm p-6 rounded-lg shadow-lg">
-    <h1 className="font-bold mb-4">Sign In</h1>
+    <h1 className="font-bold mb-4">Admin</h1>
+    <h2 className="font-bold mb-4">Sign In</h2>
     {formFields.map((field) => (
       <InputField
         key={field.id}

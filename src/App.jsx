@@ -8,13 +8,11 @@ import AdminSignin from "./Pages/non-authorized/Admin/AdminSignin";
 import SuperAdminSignin from "./Pages/non-authorized/Superadmin/SuperAdminSignin";
 import ToastContainer from "./components/Toastcontainer";
 import Welcome from "./Pages/authorized/Welcome";
-import ToDo from "./Pages/authorized/ToDo"
+import ToDo from "./Pages/authorized/ToDo";
 import PageNotFound from "./Pages/non-authorized/PageNotFound";
-import ProtectedRoute from "./components/ProtectedRoute"; 
+import ProtectedRoute from "./components/ProtectedRoute";
 import AdminTodo from "./Pages/authorized/AdminTodo";
 import SuperAdminTodo from "./Pages/authorized/SuperAdminTodo";
-
-
 
 function App() {
   return (
@@ -24,14 +22,44 @@ function App() {
           <Route path="/" element={<Navigate to="/signup" replace />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/adminsignup" element={<AdminSignup />} />
-          <Route path="/superadminsignup" element={<SuperAdminSignup/>} />
+          <Route path="/superadminsignup" element={<SuperAdminSignup />} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/adminsignin" element={<AdminSignin /> }/>
-          <Route path="/superadminsignin" element={ <SuperAdminSignin />}/>
-          <Route path = "/welcome" element = {<ProtectedRoute><Welcome /></ProtectedRoute>}/>
-          <Route path = "/todo" element = {<ProtectedRoute><ToDo /></ProtectedRoute>}/>
-          <Route path = "/admintodo" element = {<ProtectedRoute><AdminTodo /></ProtectedRoute>}/>
-          <Route path = "/superadmintodo" element = {<ProtectedRoute><SuperAdminTodo /></ProtectedRoute>}/>
+          <Route path="/adminsignin" element={<AdminSignin />} />
+          <Route path="/superadminsignin" element={<SuperAdminSignin />} />
+
+          {/* Protected Routes with Role Check */}
+          <Route
+            path="/welcome"
+            element={
+              <ProtectedRoute allowedRoles={["user", "admin", "superadmin"]}>
+                <Welcome />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/todo"
+            element={
+              <ProtectedRoute allowedRoles={["user"]}>
+                <ToDo />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admintodo"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <AdminTodo />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/superadmintodo"
+            element={
+              <ProtectedRoute allowedRoles={["superadmin"]}>
+                <SuperAdminTodo />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

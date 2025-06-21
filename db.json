@@ -1,81 +1,56 @@
 {
+  "todos": [
+    {
+      "id": "d56f",
+      "text": "asdhoweuf",
+      "completed": false,
+      "userEmail": "asdf@gmail.com"
+    },
+    {
+      "id": "8f36",
+      "text": "a defmnef",
+      "completed": false,
+      "userEmail": "asdf@gmail.com"
+    },
+    {
+      "id": "d8a7",
+      "text": "a e fmenbf",
+      "completed": false,
+      "userEmail": "asdf@gmail.com"
+    }
+  ],
   "users": [
     {
-      "id": "7fa4",
+      "id": "ad3e",
       "first_name": "Samikshya",
       "last_name": "Shrestha",
       "email": "asdf@gmail.com",
-      "password": "1234asdf@"
+      "password": "1234asdf@",
+      "role": "user"
     },
     {
-      "id": "deeb",
-      "first_name": "Samikshya",
+      "id": "eb83",
+      "first_name": "Sora",
       "last_name": "Shrestha",
       "email": "test@gmail.com",
-      "password": "12345asd@"
+      "password": "1234as@1",
+      "role": "user"
     },
     {
-      "id": "dc6a",
-      "first_name": "Sarad",
+      "id": "6c9c",
+      "first_name": "Samiks",
       "last_name": "Shrestha",
-      "email": "test@gmail.com",
-      "password": "abcd123@"
+      "email": "fafa@gmail.com",
+      "password": "fafagaga1@",
+      "role": "user"
     },
     {
-      "id": "22dc",
-      "first_name": "Samarpan",
-      "last_name": "Piya",
-      "email": "qwertz@gmail.com",
-      "password": "qwertz12@"
-    },
-    {
-      "id": "2b4c",
-      "first_name": "samikshya",
-      "last_name": "shrestha ",
-      "email": "hasuhwds@gmail.com",
-      "password": "asdf@123"
-    },
-    {
-      "id": "877e",
-      "first_name": "samikshya",
-      "last_name": "shrestha ",
-      "email": "sdcjn@gmail.com",
-      "password": "asdf@123"
-    },
-    {
-      "id": "249d",
-      "first_name": "samikshya",
-      "last_name": "Ssss",
-      "email": "dkjbcldjn@gmail.com",
-      "password": "asdf@123"
-    },
-    {
-      "id": "0352",
-      "first_name": "samikshya",
-      "last_name": "Ssss",
-      "email": "ascfdsvf@gmail.com",
-      "password": "asdsf@123"
-    },
-    {
-      "id": "e95b",
-      "first_name": "Prass",
-      "last_name": "Aach",
-      "email": "ola@gmail.com",
-      "password": "qweras@1"
-    },
-    {
-      "id": "2fba",
-      "first_name": "Samikshya ",
-      "last_name": "Adhikari",
-      "email": "olaa.admin@gmail.com",
-      "password": "1234qwer@"
-    },
-    {
-      "id": "81d0",
-      "first_name": "ola",
-      "last_name": "haha",
-      "email": "qwes@gmail.com",
-      "password": "qwes12@1"
+      "id": "465a",
+      "first_name": "Sekai",
+      "last_name": "Kazi",
+      "email": "ol.admin@gmail.com",
+      "password": "qwe123as@",
+      "role": "admin"
     }
   ]
 }

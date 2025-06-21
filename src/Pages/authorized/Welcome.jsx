@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user) {
+      // If no user logged in, redirect to signin
+      navigate("/signin", { replace: true });
+      return;
+    }
+  }, [navigate]);
+
   const handleGetStarted = () => {
-    navigate("/todo");
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (user?.role === "admin") {
+      navigate("/admintodo");
+    } else if (user?.role === "superadmin") {
+      navigate("/superadmintodo");
+    } else {
+      navigate("/todo");
+    }
   };
 
   return (

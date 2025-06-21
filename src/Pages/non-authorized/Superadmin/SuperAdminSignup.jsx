@@ -30,6 +30,7 @@ const SuperAdminSignup = () => {
         last_name: values.last_name,
         email: values.email,
         password: values.password,
+        role: "superadmin",
       }),
     });
 

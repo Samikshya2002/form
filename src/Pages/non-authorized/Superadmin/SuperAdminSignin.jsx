@@ -78,7 +78,7 @@ const SuperAdminSignin = () => {
     </div>
     <p className="text-center text-sm text-gray-600">
       Don’t have an account?{" "}
-      <Link to="/signup" className="text-blue-600 hover:underline font-medium">Sign Up now</Link>
+      <Link to="/superadminsignup" className="text-blue-600 hover:underline font-medium">Sign Up now</Link>
     </p>
     </form>
     </div>

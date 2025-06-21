@@ -30,6 +30,7 @@ const Signup = () => {
         last_name: values.last_name,
         email: values.email,
         password: values.password,
+        role: "user",
       }),
     });
 
@@ -75,6 +76,7 @@ const Signup = () => {
           />
         ))}
         <div><SignUpDropdown/></div>
+        
         <p className="text-center text-sm text-gray-600">
           Already have an account?
           <Link to="/signin" className="text-blue-600 hover:underline font-medium">Sign In now</Link>

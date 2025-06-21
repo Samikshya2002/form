@@ -21,7 +21,7 @@ const Sidebar = () => {
         /></div>
       <div className="flex flex-col items-center space-y-8 mt-10">
         <div
-          onClick={() => navigate('/todo')}
+          onClick={() => navigate('/signup')}
           className="flex flex-col items-center cursor-pointer "
         >
           <UserCircle className="h-6 w-6 hover:scale-125 transition duration-100 transform" />

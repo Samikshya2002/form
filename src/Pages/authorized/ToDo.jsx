@@ -4,62 +4,109 @@ import AddTodoModal from '/src/components/AddToDoModal.jsx';
 import TodoTable from '../../components/TodoTable';
 import Sidebar from '../../components/Navbar';
 
+const API_URL = 'http://localhost:5001/todos';
+
 const ToDo = () => {
   const [showModal, setShowModal] = useState(false);
   const [todos, setTodos] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null); 
+  const [editingIndex, setEditingIndex] = useState(null);
   const isFirstLoad = useRef(true);
   const navigate = useNavigate();
 
   const user = JSON.parse(localStorage.getItem('user'));
-  const userEmail = user?.email?.trim().toLowerCase(); 
-
+  const userEmail = user?.email?.trim().toLowerCase();
   const TODOS_KEY = `todos_${userEmail}`;
 
+  const loadTodos = async () => {
+    if (!userEmail) return;
+    try {
+      const res = await fetch(`${API_URL}?userEmail=${userEmail}`);
+      const data = await res.json();
+      setTodos(data);
+      localStorage.setItem(TODOS_KEY, JSON.stringify(data));
+    } catch (error) {
+      console.error('Load todos error:', error);
+    }
+  };
 
   useEffect(() => {
-  if (!userEmail) return;
-  const storedTodos = localStorage.getItem(TODOS_KEY);
-  if (storedTodos) {
-    setTodos(JSON.parse(storedTodos));
-  }
+    if (!userEmail) return;
+    const storedTodos = localStorage.getItem(TODOS_KEY);
+    if (storedTodos) {
+      setTodos(JSON.parse(storedTodos));
+    }
+    loadTodos();
   }, [userEmail]);
 
-  useEffect(() => {
-  if (isFirstLoad.current) {
-    isFirstLoad.current = false;
-    return;
-  }
-  if (!userEmail) return;
-  localStorage.setItem(TODOS_KEY, JSON.stringify(todos));
-  }, [todos, userEmail]);
+  const handleSave = async (todoText) => {
+    if (!userEmail) return;
 
-
-  const handleSave = (todoText) => {
     if (editingIndex !== null) {
-      const updatedTodos = [...todos];
-      updatedTodos[editingIndex].text = todoText;
-      setTodos(updatedTodos);
-      setEditingIndex(null);
+      const todoToEdit = todos[editingIndex];
+      const updatedTodo = { ...todoToEdit, text: todoText };
+
+      try {
+        await fetch(`${API_URL}/${todoToEdit.id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedTodo),
+        });
+        await loadTodos();
+        setEditingIndex(null);
+      } catch (error) {
+        console.error('Failed to update todo');
+      }
     } else {
       const newTodo = {
         text: todoText,
         completed: false,
+        userEmail: userEmail,
       };
-      setTodos((prevTodos) => [...prevTodos, newTodo]);
+
+      try {
+        await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newTodo),
+        });
+        await loadTodos();
+      } catch (error) {
+        console.error('Failed to add todo');
+      }
     }
+
     setShowModal(false);
   };
 
-  const toggleComplete = (index) => {
-    const updatedTodos = [...todos];
-    updatedTodos[index].completed = !updatedTodos[index].completed;
-    setTodos(updatedTodos);
+  const toggleComplete = async (index) => {
+    const todoToUpdate = todos[index];
+    const updatedTodo = {
+      ...todoToUpdate,
+      completed: !todoToUpdate.completed,
+    };
+
+    try {
+      await fetch(`${API_URL}/${todoToUpdate.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedTodo),
+      });
+      await loadTodos();
+    } catch (error) {
+      console.error('Failed to toggle todo');
+    }
   };
 
-  const handleDelete = (index) => {
-    const updatedTodos = todos.filter((_, i) => i !== index);
-    setTodos(updatedTodos);
+  const handleDelete = async (index) => {
+    const todoToDelete = todos[index];
+    try {
+      await fetch(`${API_URL}/${todoToDelete.id}`, {
+        method: 'DELETE',
+      });
+      await loadTodos();
+    } catch (error) {
+      console.error('Failed to delete todo');
+    }
   };
 
   const handleEdit = (index) => {
@@ -67,17 +114,15 @@ const ToDo = () => {
     setShowModal(true);
   };
 
-  
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
-      <Sidebar/>
+      <Sidebar />
       <div className="bg-white p-6 sm:p-10 rounded-2xl shadow-lg text-center max-w-2xl w-full relative mx-auto">
         <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-600">TODO List</h1>
-        
+
         <button
           onClick={() => {
-            setEditingIndex(null); 
+            setEditingIndex(null);
             setShowModal(true);
           }}
           className="bg-blue-500 hover:bg-blue-600 text-white mb-4 px-3 py-2 rounded text-sm sm:text-base"

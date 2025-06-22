@@ -1,19 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AddTodoModal from '/src/components/AddToDoModal.jsx';
-import TodoTable from '../../components/TodoTable';
-import Sidebar from '../../components/Navbar';
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import AddTodoModal from "/src/components/AddToDoModal.jsx";
+import TodoTable from "../../components/TodoTable";
+import DeleteConfirmModal from "../../components/DeleteConfirmModal";
 
-const API_URL = 'http://localhost:5001/todos';
+const API_URL = "http://localhost:5001/todos";
 
 const ToDo = () => {
   const [showModal, setShowModal] = useState(false);
   const [todos, setTodos] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(null);
   const isFirstLoad = useRef(true);
   const navigate = useNavigate();
 
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem("user"));
   const userEmail = user?.email?.trim().toLowerCase();
   const TODOS_KEY = `todos_${userEmail}`;
 
@@ -25,7 +26,7 @@ const ToDo = () => {
       setTodos(data);
       localStorage.setItem(TODOS_KEY, JSON.stringify(data));
     } catch (error) {
-      console.error('Load todos error:', error);
+      console.error("Load todos error:", error);
     }
   };
 
@@ -47,14 +48,14 @@ const ToDo = () => {
 
       try {
         await fetch(`${API_URL}/${todoToEdit.id}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedTodo),
         });
         await loadTodos();
         setEditingIndex(null);
       } catch (error) {
-        console.error('Failed to update todo');
+        console.error("Failed to update todo");
       }
     } else {
       const newTodo = {
@@ -65,13 +66,13 @@ const ToDo = () => {
 
       try {
         await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newTodo),
         });
         await loadTodos();
       } catch (error) {
-        console.error('Failed to add todo');
+        console.error("Failed to add todo");
       }
     }
 
@@ -87,25 +88,31 @@ const ToDo = () => {
 
     try {
       await fetch(`${API_URL}/${todoToUpdate.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedTodo),
       });
       await loadTodos();
     } catch (error) {
-      console.error('Failed to toggle todo');
+      console.error("Failed to toggle todo");
     }
   };
+  const confirmDelete = (index) => {
+    setDeleteIndex(index);
+  };
 
-  const handleDelete = async (index) => {
-    const todoToDelete = todos[index];
+  const handleConfirmDelete = async () => {
+    if (deleteIndex === null) return;
+
+    const todoToDelete = todos[deleteIndex];
     try {
       await fetch(`${API_URL}/${todoToDelete.id}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       await loadTodos();
+      setDeleteIndex(null);
     } catch (error) {
-      console.error('Failed to delete todo');
+      console.error("Failed to delete todo");
     }
   };
 
@@ -116,7 +123,6 @@ const ToDo = () => {
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
-      <Sidebar />
       <div className="bg-white p-6 sm:p-10 rounded-2xl shadow-lg text-center max-w-2xl w-full relative mx-auto">
         <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-600">TODO List</h1>
 
@@ -137,7 +143,7 @@ const ToDo = () => {
               setEditingIndex(null);
             }}
             onSave={handleSave}
-            initialText={editingIndex !== null ? todos[editingIndex].text : ''}
+            initialText={editingIndex !== null ? todos[editingIndex].text : ""}
           />
         )}
 
@@ -145,9 +151,16 @@ const ToDo = () => {
           todos={todos}
           toggleComplete={toggleComplete}
           handleEdit={handleEdit}
-          handleDelete={handleDelete}
+          handleDelete={confirmDelete} 
         />
       </div>
+
+      <DeleteConfirmModal
+        isOpen={deleteIndex !== null}
+        onCancel={() => setDeleteIndex(null)}
+        onConfirm={handleConfirmDelete}
+        message="Are you sure you want to delete this todo?"
+      />
     </div>
   );
 };

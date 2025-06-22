@@ -21,7 +21,7 @@ const SignUpDropdown = () => {
 
   const handleNavigation = (path) => {
     navigate(path);
-    setIsOpen(false); // close the dropdown after navigation
+    setIsOpen(false); 
   };
 
 

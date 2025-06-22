@@ -1,12 +1,6 @@
 {
   "todos": [
     {
-      "id": "d56f",
-      "text": "asdhoweuf",
-      "completed": false,
-      "userEmail": "asdf@gmail.com"
-    },
-    {
       "id": "8f36",
       "text": "a defmnef",
       "completed": false,
@@ -65,6 +59,24 @@
       "text": "admin todo",
       "completed": false,
       "userEmail": "ol.admin@gmail.com"
+    },
+    {
+      "id": "6b12",
+      "text": "asjhdeifh",
+      "completed": false,
+      "userEmail": "hehe.superadmin@gmail.com"
+    },
+    {
+      "id": "8e47",
+      "text": "superadmin todo",
+      "completed": false,
+      "userEmail": "hehe.superadmin@gmail.com"
+    },
+    {
+      "id": "9978",
+      "text": "yxmcnd",
+      "completed": false,
+      "userEmail": "asdf@gmail.com"
     }
   ],
   "users": [
@@ -98,6 +110,31 @@
       "last_name": "Kazi",
       "email": "ol.admin@gmail.com",
       "password": "qwe123as@",
+      "role": "admin"
+    },
+    {
+      "id": "6915",
+      "first_name": "Vola",
+      "last_name": "Shankar",
+      "email": "hehe.superadmin@gmail.com",
+      "password": "123tzu89@",
+      "role": "superadmin"
+    },
+    {
+      "id": "e405",
+      "first_name": "Rishab",
+      "last_name": "Shrestha",
+      "email": "rish.admin@gmail.com",
+      "password": "678zui@",
+      "role": "admin"
+    },
+    {
+      "id": "308d",
+      "first_name": "Nurin",
+      "last_name": "Shrestha",
+      "email": "noor.admin@gmail.com",
+      "password": "noor123@",
+      "confirm_password": "noor123@",
       "role": "admin"
     }
   ]

@@ -14,10 +14,10 @@ const ProtectedRoute = ({ children }) => {
       setIsAuthenticated(false);
     }
 
-    // Simulate slight delay for smoother UX
+    
     const timeout = setTimeout(() => {
       setLoading(false);
-    }, 500); // optional delay
+    }, 500); 
 
     return () => clearTimeout(timeout);
   }, []);

@@ -21,6 +21,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Navigate to="/signup" replace />} />
+
+          {/* Public Routes */}
           <Route path="/signup" element={<Signup />} />
           <Route path="/adminsignup" element={<AdminSignup />} />
           <Route path="/superadminsignup" element={<SuperAdminSignup />} />
@@ -29,27 +31,44 @@ function App() {
           <Route path="/superadminsignin" element={<SuperAdminSignin />} />
 
           <Route
-              path="/welcome"
-              element={<ProtectedRoute allowedRoles={["user", "admin", "superadmin"]}><Welcome /></ProtectedRoute>}
-            />
+            path="/welcome"
+            element={
+              <ProtectedRoute allowedRoles={["user", "admin", "superadmin"]}>
+                <Welcome />
+              </ProtectedRoute>
+            }
+          />
 
-          <Route element={<ProtectedLayout />}> 
+          <Route element={<ProtectedLayout />}>
             <Route
               path="/todo"
-              element={<ProtectedRoute allowedRoles={["user"]}><ToDo /></ProtectedRoute>}
+              element={
+                <ProtectedRoute allowedRoles={["user"]}>
+                  <ToDo />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/admintodo"
-              element={<ProtectedRoute allowedRoles={["admin"]}><AdminTodo /></ProtectedRoute>}
+              element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <AdminTodo />
+                </ProtectedRoute>
+              }
             />
             <Route
               path="/superadmintodo"
-              element={<ProtectedRoute allowedRoles={["superadmin"]}><SuperAdminTodo /></ProtectedRoute>}
+              element={
+                <ProtectedRoute allowedRoles={["superadmin"]}>
+                  <SuperAdminTodo />
+                </ProtectedRoute>
+              }
             />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
+
       <ToastContainer />
     </>
   );

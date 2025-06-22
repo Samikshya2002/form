@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const SignUpDropdown = () => {
+const SignInDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -31,20 +31,20 @@ const SignUpDropdown = () => {
         onClick={toggleDropdown}
         className="bg-blue-500 text-white px-4 py-2 rounded flex items-center gap-2 hover:bg-blue-600"
       >
-        Sign Up <ChevronDown size={18} />
+        Sign In <ChevronDown size={18} />
       </button>
 
       {isOpen && (
         <div className=" mt-2 w-48 bg-white border rounded shadow-lg z-10">
           <ul className="py-1 text-gray-700">
              <li 
-             onClick={() => handleNavigation("/signup")}
+             onClick={() => handleNavigation("/signin")}
             className="px-4 py-2 hover:bg-gray-100 cursor-pointer">User</li>
             <li 
-             onClick={() => handleNavigation("/adminsignup")}
+             onClick={() => handleNavigation("/adminsignin")}
             className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Admin</li>
             <li
-            onClick={() => handleNavigation("/superadminsignup")} 
+            onClick={() => handleNavigation("/superadminsignin")} 
             className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Super Admin</li>
           </ul>
         </div>
@@ -53,4 +53,4 @@ const SignUpDropdown = () => {
   );
 };
 
-export default SignUpDropdown;
+export default SignInDropdown;

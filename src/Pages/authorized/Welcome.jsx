@@ -1,22 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    if (!user) {
-      // If no user logged in, redirect to signin
-      navigate("/signin", { replace: true });
-      return;
-    }
-  }, [navigate]);
+  if (!user) {
+    navigate("/signin", { replace: true });
+    return null;
+  }
 
   const handleGetStarted = () => {
-    const user = JSON.parse(localStorage.getItem("user"));
-
     if (user?.role === "admin") {
       navigate("/admintodo");
     } else if (user?.role === "superadmin") {
@@ -30,7 +25,7 @@ const Welcome = () => {
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-10 rounded-2xl shadow-lg text-center max-w-md w-full">
         <h1 className="text-4xl font-bold mb-4 text-gray-600">
-          Welcome to Our Page!
+          Welcome to Our Page, {user?.first_name}!
         </h1>
         <p className="text-lg text-gray-700 mb-6">
           We're glad to have you here.

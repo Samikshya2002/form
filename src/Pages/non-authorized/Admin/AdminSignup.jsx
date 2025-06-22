@@ -57,6 +57,18 @@ const AdminSignup = () => {
     { id: "confirm_password", type: "password", name: "confirm_password", placeholder: "Confirm Password" },
   ];
 
+  const checkEmailExists = async (email) => {
+  try {
+    const response = await fetch(`http://localhost:5001/users?email=${email}`);
+    const users = await response.json();
+    return users.length > 0; // true if already exists
+  } catch (error) {
+    console.error("Error checking email:", error);
+    return false; // Treat as not available on error
+  }
+};
+
+
   return (
     <div className="flex flex-col md:flex-row max-w-4xl mx-auto shadow-md rounded overflow-hidden border mt-32">
       <form onSubmit={formik.handleSubmit} className="border w-full md:w-2/3 p-6 shadow-md">

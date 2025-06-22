@@ -17,7 +17,8 @@ const AdminTodo = () => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get("http://localhost:5001/users");
-        const filteredUsers = res.data.filter((user) => user.role !== "admin");
+        const excludedRoles = ["admin", "superadmin"];
+        const filteredUsers = res.data.filter((user) => !excludedRoles.includes(user.role));
         setUsers(filteredUsers);
       } catch (error) {
         console.error("Error fetching users:", error);

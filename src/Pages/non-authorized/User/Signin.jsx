@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ToastContainer from "../../../components/Toastcontainer";
+import SignInDropdown from "../../../components/SignInDropdown";
 
 const Signin = () => {
     const navigate = useNavigate();
@@ -72,9 +73,7 @@ const Signin = () => {
         touched={formik.touched[field.name]}
       />
     ))}
-    <div className="mb-4">
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded w-full">Sign In</button>
-    </div>
+    <div><SignInDropdown/></div>
     <p className="text-center text-sm text-gray-600">
       Don’t have an account?{" "}
       <Link to="/signup" className="text-blue-600 hover:underline font-medium">Sign Up now</Link>

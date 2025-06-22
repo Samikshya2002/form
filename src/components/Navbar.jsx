@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { UserCircle, ShieldCheck, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const [openMenu, setOpenMenu] = useState(null); // 'admin', 'superadmin', or null
-  const [userRole, setUserRole] = useState(null); // Track the signed-in user's role
+  const [openMenu, setOpenMenu] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
-    // Assuming you are storing user data like { email, role }
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-      setUserRole(user.role); // Example roles: 'user', 'admin', 'superadmin'
+      setUserRole(user.role);
     }
+
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpenMenu(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleLogout = () => {
@@ -22,11 +31,22 @@ const Sidebar = () => {
   };
 
   const toggleMenu = (menu) => {
-    setOpenMenu(openMenu === menu ? null : menu);
+    if (isMenuAccessible(menu)) {
+      setOpenMenu(openMenu === menu ? null : menu);
+    }
   };
 
-  // Define active style
+  // Only allow opening own menu
+  const isMenuAccessible = (menu) => userRole === menu;
+
+  const navigateIfAllowed = (path) => {
+    if (path && path !== '#') {
+      navigate(path);
+    }
+  };
+
   const activeStyle = 'text-blue-500 font-bold';
+  const disabledStyle = 'opacity-50 cursor-not-allowed';
 
   return (
     <div className="min-h w-20 rounded-2xl bg-gray-100 text-black flex flex-col items-center py-6 space-y-10 shadow-lg relative">
@@ -38,38 +58,51 @@ const Sidebar = () => {
         />
       </div>
 
-      <div className="flex flex-col items-center space-y-8 mt-10 relative">
-        {/* User */}
+      <div ref={dropdownRef} className="flex flex-col items-center space-y-8 mt-10 relative">
+
+        {/* User Menu */}
         <div
-          onClick={() => navigate('/signup')}
-          className={`flex flex-col items-center cursor-pointer ${userRole === 'user' ? activeStyle : ''}`}
+          onClick={() => toggleMenu('user')}
+          className={`flex flex-col items-center cursor-pointer ${userRole === 'user' ? activeStyle : ''} ${!isMenuAccessible('user') ? disabledStyle : ''}`}
         >
           <UserCircle className="h-6 w-6 hover:scale-125 transition duration-100 transform" />
           <span className="text-xs mt-1">User</span>
         </div>
 
+        {openMenu === 'user' && isMenuAccessible('user') && (
+          <div className="absolute left-full top-0 ml-2 bg-white border rounded shadow-lg w-44 z-10">
+            <div
+              className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+              onClick={() => navigateIfAllowed('/todo')}
+            >
+              Your Todo
+            </div>
+          </div>
+        )}
+
         {/* Admin Menu */}
         <div className="relative">
           <div
             onClick={() => toggleMenu('admin')}
-            className={`flex flex-col items-center cursor-pointer ${userRole === 'admin' ? activeStyle : ''}`}
+            className={`flex flex-col items-center cursor-pointer ${userRole === 'admin' ? activeStyle : ''} ${!isMenuAccessible('admin') ? disabledStyle : ''}`}
           >
             <ShieldCheck className="h-6 w-6 hover:scale-125 transition duration-100 transform" />
             <span className="text-xs mt-1">Admin</span>
           </div>
-          {openMenu === 'admin' && (
+
+          {openMenu === 'admin' && isMenuAccessible('admin') && (
             <div className="absolute left-full top-0 ml-2 bg-white border rounded shadow-lg w-44 z-10">
               <div
                 className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
-                onClick={() => navigate('/admintodo')}
+                onClick={() => navigateIfAllowed('/admintodo')}
               >
                 Users' Todos
               </div>
               <div
                 className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
-                onClick={() => navigate('/todo')}
+                onClick={() => navigateIfAllowed('/todo')}
               >
-                Add your Todo
+                Your Todo
               </div>
             </div>
           )}
@@ -79,30 +112,36 @@ const Sidebar = () => {
         <div className="relative">
           <div
             onClick={() => toggleMenu('superadmin')}
-            className={`flex flex-col items-center cursor-pointer ${userRole === 'superadmin' ? activeStyle : ''}`}
+            className={`flex flex-col items-center cursor-pointer ${userRole === 'superadmin' ? activeStyle : ''} ${!isMenuAccessible('superadmin') ? disabledStyle : ''}`}
           >
             <Award className="h-6 w-6 hover:scale-125 transition duration-100 transform" />
             <span className="text-xs mt-1 text-center">Super Admin</span>
           </div>
-          {openMenu === 'superadmin' && (
+
+          {openMenu === 'superadmin' && isMenuAccessible('superadmin') && (
             <div className="absolute left-full top-0 ml-2 bg-white border rounded shadow-lg w-44 z-10">
               <div
                 className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
-                onClick={() => navigate('/superadmin/view-users-todos')}
+                onClick={() => navigateIfAllowed('/admintodo')}
               >
-                View Users' Todos
+                Users' Todos
               </div>
               <div
                 className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
-                onClick={() => navigate('/superadmin/add-todo')}
+                onClick={() => navigateIfAllowed('/superadmintodo')}
               >
-                Add Own Todo
+                Admins' Todos
+              </div>
+              <div
+                className="px-3 py-2 hover:bg-gray-200 cursor-pointer"
+                onClick={() => navigateIfAllowed('/todo')}
+              >
+                Your Todo
               </div>
             </div>
           )}
         </div>
 
-        {/* Logout */}
         <div>
           <button
             onClick={handleLogout}
